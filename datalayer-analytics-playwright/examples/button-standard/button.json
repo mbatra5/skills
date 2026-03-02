@@ -1,0 +1,17 @@
+{
+  "primaryButton": "/components/button/primary",
+
+  "cta_click": {
+    "event": "cta_click",
+    "click_text": "Get Started",
+    "click_url": "/signup",
+    "component_name": "Primary Button",
+    "link_type": "internal"
+  },
+
+  "select_content": {
+    "event": "select_content",
+    "content_type": "button",
+    "item_id": "primary-get-started"
+  }
+}
