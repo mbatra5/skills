@@ -28,14 +28,14 @@ Adjust paths in the config and imports to match your project structure. The shar
 
 ## Step 1: Get the Tracking Spec
 
-**Option A — Tracking spec URL** (preferred, most token-efficient):
+**Option A — User-provided tracking spec URL** (preferred, most token-efficient):
 
-If the spec lives in a wiki or doc platform, fetch it via the most efficient method available:
+Only fetch URLs explicitly provided by the user. If the spec lives in a wiki or documentation platform, fetch it via the most efficient method available:
 - **Confluence + MCP**: `conf_get path="/wiki/rest/api/content/{pageId}" queryParams={"expand": "body.storage"} jq="body.storage.value"` — use `body.storage` format (~55% smaller than rendered HTML)
 - **Confluence + REST**: `curl -s "https://{domain}/wiki/rest/api/content/{pageId}?expand=body.storage" -H "Authorization: Bearer {token}"` — pipe through `jq '.body.storage.value'`
-- **Any URL**: Fetch the page and extract event names, parameter tables, code blocks
+- **Other documentation URLs**: Fetch the user-provided page and extract event names, parameter tables, code blocks
 
-Extract page ID from URL (numeric segment after `/pages/`). Extract ONLY: event names, parameter tables, code blocks, notes about excluded events.
+Extract page ID from URL (numeric segment after `/pages/`). Extract ONLY: event names, parameter tables, code blocks, notes about excluded events. After extraction, display the parsed event names and parameters to the user for approval before creating any files.
 
 **Option B — Manual**: User provides event names + parameters in chat.
 

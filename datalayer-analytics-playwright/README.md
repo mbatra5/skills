@@ -223,7 +223,7 @@ Banned: `getByRole()`, `getByText()`, `.nth()`, `.first()`, bare tag selectors.
 
 ### Wiki / Document URL (recommended)
 
-The agent fetches tracking specs from Confluence, Notion, Google Docs, or any accessible URL. For Confluence, it uses the REST API `body.storage` format (~55% smaller than rendered HTML). For other platforms, it fetches and parses the page content. The agent extracts event names, parameter tables, and code blocks — ignoring images and page chrome.
+The agent fetches tracking specs from documentation URLs you provide (e.g., your team's Confluence, Notion, or internal wiki). For Confluence, it uses the REST API `body.storage` format (~55% smaller than rendered HTML). For other platforms, it fetches and parses the page content. The agent extracts event names, parameter tables, and code blocks — ignoring images and page chrome. After extraction, it displays the parsed events for your approval before creating any files.
 
 Works with any agent that can fetch URLs or call APIs (MCP, REST, curl, web fetch).
 

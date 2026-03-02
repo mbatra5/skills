@@ -86,6 +86,7 @@ Default to **first-match + clear**. See `references/assertion-strategy.md` for d
 3. **Never modify shared utility files** (`datalayer-util.ts`, `analytics-logger.ts`, `analytics-helpers.ts`, `analytics-common-step.ts`).
 4. Use `toMatchObject()` for assertions. `toEqual()` is banned.
 5. **Never auto-update JSON** — always present comparison and wait for user approval.
+6. **Only fetch tracking specs from URLs explicitly provided by the user.** Always display extracted event names for user approval before creating files.
 
 ## References
 
