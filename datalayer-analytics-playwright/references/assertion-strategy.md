@@ -136,12 +136,14 @@ The first assertion clears the dataLayer, so the second assertion only sees the 
 
 ## App/Live Page Testing
 
-On live pages with multiple components, use deep partial matching as default (not first-match-by-name) because multiple components may fire events with the same name:
+On live pages, multiple components fire events with the same name (e.g. Breadcrumb + Hero both fire `content_in_viewport`). Use `findMatchingDataLayerEvent(expected)` which filters by `event` name + `parameters.content.name` from the expected JSON, then `toMatchObject` provides clear field-by-field diffs.
 
-| Assertion | BDD Step | Standard Helper | Use When |
-|-----------|----------|-----------------|----------|
-| Deep match | `contain a matching "{key}" event` | `expectMatchingEvent()` | Viewport events (multiple components on page) |
-| Deep match + clear | `contain a matching "{key}" event and clear` | `expectMatchingEventAndClear()` | Interaction events (CTA click, controls) |
+| Assertion | BDD Step | Lookup | Clears? |
+|-----------|----------|--------|---------|
+| Component-aware match | `contain a matching "{key}" event` | `findMatchingDataLayerEvent` (event + component name) | No |
+| Component-aware + clear | `contain a matching "{key}" event and clear` | Same | Yes |
+
+**Never use** `findDataLayerEvent` (first-match-by-name — returns wrong component's event) or `findDataLayerEventMatching` directly for app tests. `findMatchingDataLayerEvent` handles multi-candidate cases (e.g. 4 Videos on one page) internally via `deepMatch` with fallback to first candidate for `toMatchObject` diagnostics.
 
 ## How Deep Matching Works
 

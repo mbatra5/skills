@@ -71,19 +71,19 @@ Both modes share the same JSON format, page objects, and DataLayer utilities.
 
 ## Assertion Strategy
 
-| Assertion | Standard Helper | BDD Step | Clears? |
-|-----------|----------------|----------|---------|
-| First-match + clear | `expectEvent(data, key)` | `contain expected "{key}" event` | Yes |
-| Deep partial match | `expectMatchingEvent(data, key)` | `contain a matching "{key}" event` | No |
-| Deep match + clear | `expectMatchingEventAndClear(data, key)` | `contain a matching "{key}" event and clear` | Yes |
+| Assertion | BDD Step | Clears? | Context |
+|-----------|----------|---------|---------|
+| First-match + clear | `contain expected "{key}" event` | Yes | Storybook (isolated components) |
+| Component-aware match | `contain a matching "{key}" event` | No | **App tests (multi-component pages)** |
+| Component-aware + clear | `contain a matching "{key}" event and clear` | Yes | App interaction events |
 
-Default to **first-match + clear**. See `references/assertion-strategy.md` for details.
+**Storybook**: Default to first-match + clear. **App tests**: Always use `findMatchingDataLayerEvent` — extracts `event` + `parameters.content.name` from expected JSON to locate the correct component's event, then `toMatchObject` provides field diffs. See `references/assertion-strategy.md` for details.
 
 ## Critical Rules
 
 1. **Capture ALL properties** from actual events. Only exclude `gtm.uniqueEventId`.
 2. **Never remove properties to fix flaky tests.** Make dynamic values deterministic via URL args.
-3. **Never modify shared utility files** (`datalayer-util.ts`, `analytics-logger.ts`, `analytics-helpers.ts`, `analytics-common-step.ts`).
+3. **Never modify** `analytics-common-step.ts`, `analytics-logger.ts`, or `analytics-helpers.ts`. New utility methods may be added to `datalayer-util.ts` but existing methods must not be altered.
 4. Use `toMatchObject()` for assertions. `toEqual()` is banned.
 5. **Never auto-update JSON** — always present comparison and wait for user approval.
 6. **Only fetch tracking specs from URLs explicitly provided by the user.** Always display extracted event names for user approval before creating files.
