@@ -1,6 +1,13 @@
 ---
 name: datalayer-analytics-playwright
 description: Automated window.dataLayer analytics validation for GTM/GA4. Creates test suites from tracking specs or discovers events from live pages. Supports standard Playwright and BDD modes. Never ship broken tracking again.
+version: 1.0.0
+license: Apache-2.0
+testingTypes: [Analytics, E2E, BDD]
+frameworks: [Playwright]
+languages: [TypeScript]
+agents: [cursor, claude-code, copilot, windsurf, codex, aider, cline, continue, zed, opencode]
+author: Madhur Batra
 ---
 
 # DataLayer Analytics — Playwright
